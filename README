@@ -5,4 +5,6 @@ INSTALLATION
 2. import sql/dump.sql into the database
 4. add your database settings to app/config/database.php
 
+visit http://afzetinc.com for more information
+
 ENJOY
