@@ -7,4 +7,14 @@ INSTALLATION
 
 visit http://afzetinc.com for more information
 
+
+default logins
+
+#admin
+username: admin
+password: admin
+
+#staff
+username: staff
+password: staff
 ENJOY
