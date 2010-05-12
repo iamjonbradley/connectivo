@@ -1,0 +1,8 @@
+
+INSTALLATION
+
+1. create database
+2. import sql/dump.sql into the database
+4. add your database settings to app/config/database.php
+
+ENJOY

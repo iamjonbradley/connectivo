@@ -1,0 +1,113 @@
+/* WRITE YOUR CSS CODE HERE */
+body {
+	background: #EAEAEA
+}
+
+/* Tables */
+table#index {
+	background: #fff;
+	clear: both;
+	color: #333;
+	margin-bottom: 10px;
+	width: 100%;
+	font-size: 11px;
+}
+table#index th {
+	color: #000;
+	background: #f2f2f2;
+	border:1px solid #bbb;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+	text-align: center;
+	font-size: 11px;
+}
+table#index th a {
+	background:#f2f2f2;
+	display: block;
+	padding: 2px 4px;
+	text-decoration: none;
+	font-size: 11px;
+}
+table#index th a:hover {
+	background: #ccc;
+	color: #333;
+	text-decoration: none;
+	font-size: 11px;
+}
+table#index  tr td {
+	background: #fff;
+	padding: 4px;
+	text-align: center;
+	vertical-align: top;
+	font-size: 11px;
+}
+table#index tr.altrow td {
+	background: #f4f4f4;
+	font-size: 11px;
+}
+td.actions {
+	text-align: center;
+	white-space: nowrap;
+	font-size: 11px;
+}
+td.actions a {
+	margin: 0px 6px;
+	font-size: 11px;
+}
+.cake-sql-log table {
+	background: #f4f4f4;
+}
+.cake-sql-log td {
+	padding: 4px 8px;
+	text-align: left;
+}
+
+strong.date { color: red;}
+
+table.pagination, table.pagination tr, table.pagination tr td {
+	border: 0;
+	font-size: 11px;
+}
+
+table.pagination {
+	width: 100%;
+}
+#content table.pagination tr td {
+	width: 50%;
+	border-bottom: 0;
+}
+
+.align-right {
+	text-align: right;
+}
+
+table#index tbody tr.converted td {
+	background-color: #ffdc9f;
+}
+
+table#index tbody tr.cancelled td {
+	background-color: #888;
+	text-transform: line-through;
+	color:#ccc;
+}
+
+table#index tbody tr.cancelled td a {
+	color:#ccc;
+}
+
+table#index tbody tr.cancelled td a img {
+	background-color: #888;
+	text-transform: line-through;
+	opacity: .4;
+}
+
+table#index tbody tr.cancelled:hover td a img {
+	opacity: 1;
+	background-color: #ECF7BB;
+}
+
+.align-left {
+	text-align: left;
+}
+
+table#index tr.row:hover td, table#index tr.altrow:hover td { background-color: #ECF7BB; }
