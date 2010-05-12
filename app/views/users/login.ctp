@@ -19,15 +19,3 @@
 				</tbody></table>
 			</fieldset>
 		<?=$form->end();?>
-		<div id="demo-users">
-			<p>
-				<strong>Admin Access</strong><br />
-				username: admin<br />
-				password: admin
-			</p>
-			<p>
-				<strong>Staff Access</strong><br />
-				username: staff<br />
-				password: staff
-			</p>
-		</div>
