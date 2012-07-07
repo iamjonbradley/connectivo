@@ -20,5 +20,4 @@ default logins
 > username: staff <br />
 > password: staff
 
-
 ENJOY
