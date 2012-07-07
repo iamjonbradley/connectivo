@@ -5,4 +5,3 @@ app/tmp/logs/*
 app/tmp/sessions/*
 app/tmp/tests/*
 app/config/database.php
-connectivo/core/config/conf.php
