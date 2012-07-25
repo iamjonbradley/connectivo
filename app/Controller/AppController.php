@@ -4,7 +4,7 @@ App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
   
-  var $components = array('Auth', 'RequestHandler', 'Session');
+  var $components = array('Auth', 'RequestHandler', 'Session', 'DebugKit.Toolbar');
   var $passed = null;
   var $replace = array(
       'phone' => array('+', '-', '(', ')', ' ')
@@ -12,16 +12,13 @@ class AppController extends Controller {
 
    function beforeFilter() {  
     // auth component stuff
-    $this->Auth->authorize        = 'actions';
     $this->Auth->loginRedirect    = array('controller' => 'leads', 'action' => 'index');
     $this->Auth->allowedActions   = array('*');
-    $this->Auth->authError        = 'Access Denied. Please contact the administrator.';
-    $this->Auth->actionPath       = 'controllers/';
     
     // if the user is logged in and see if they have open timeclocks and projects
     if ($this->Auth->user()) {      
       // log the user's actions
-      foreach ($this->params['pass'] as $pass) {
+      foreach ($this->request->params['pass'] as $pass) {
         $this->passed .= $pass . ',';
       }
       
@@ -29,27 +26,27 @@ class AppController extends Controller {
       $this->logAction();
       }
       else {
-          if ($this->params['action'] != 'login') $this->redirect('/users/login');
+          if ($this->request->params['action'] != 'login') $this->redirect('/users/login');
       }
     
     // set our default page title into our view based off the current controller name
-    $this->pageTitle = Inflector::humanize($this->params['controller']) . ' : ' . Inflector::humanize($this->params['action']);
+    $this->pageTitle = Inflector::humanize($this->request->params['controller']) . ' : ' . Inflector::humanize($this->request->params['action']);
   }
   
   // this function tracks our user's actions
   function logAction () {
     // prepare the data variable
-    $this->data['ActionLog']['user_id']    = $this->Auth->user('id');
-    $this->data['ActionLog']['controller'] = $this->params['controller'];
-    $this->data['ActionLog']['action']     = $this->params['action'];
-    $this->data['ActionLog']['params']     = $this->passed;
+    $this->request->data['ActionLog']['user_id']    = $this->Auth->user('id');
+    $this->request->data['ActionLog']['controller'] = $this->request->params['controller'];
+    $this->request->data['ActionLog']['action']     = $this->request->params['action'];
+    $this->request->data['ActionLog']['params']     = $this->passed;
     
     // insert new log
     $this->ActionLog = ClassRegistry::init('ActionLog');
     $this->ActionLog->create();
-    $this->ActionLog->save($this->data);
+    $this->ActionLog->save($this->request->data);
     
-    unset($this->data['ActionLog']);
+    unset($this->request->data['ActionLog']);
   }
 
   function beforeRender() {  

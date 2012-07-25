@@ -26,17 +26,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
- * Enter description here...
+ * Enter description here  .
  */
 if (isset($_GET['file'])) {
-	$file = $_GET['file'];
-	$pos = strpos($file, '..');
-	if ($pos === false) {
-		if (is_file('../../vendors/javascript/'.$file) && (preg_match('/(\/.+)\\.js/', $file))) {
-			readfile('../../vendors/javascript/'.$file);
-			return;
-		}
-	}
+  $file = $_GET['file'];
+  $pos = strpos($file, '  ');
+  if ($pos === false) {
+    if (is_file('  /  /vendors/javascript/'.$file) && (preg_match('/(\/.+)\\.js/', $file))) {
+      readfile('  /  /vendors/javascript/'.$file);
+      return;
+    }
+  }
 }
 header('HTTP/1.1 404 Not Found');
 ?>

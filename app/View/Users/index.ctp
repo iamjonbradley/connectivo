@@ -5,28 +5,28 @@
 <?php
 
 $headers = array(
-		$paginator->sort('ID', 'id'),
-		$paginator->sort('Name', 'Group.name'),
-		$paginator->sort('Name', 'User.name'),
-		$paginator->sort('Name', 'username'),
-		'Action'
-	);
-	
+    $this->Paginator->sort('ID', 'id'),
+    $this->Paginator->sort('Name', 'Group.name'),
+    $this->Paginator->sort('Name', 'User.name'),
+    $this->Paginator->sort('Name', 'username'),
+    'Action'
+  );
+  
 echo $this->Html->tableHeaders($headers);
-	
-foreach ($data as $key => $value):	  
-		echo $this->Html->tableCells(
-			array(
-				$value['User']['id'],
-				$value['Group']['name'],
-				$value['User']['name'],
-				$value['User']['username'],
-				$this->Html->link($this->Html->image('icons/edit.png'), array('action'=>'edit', $value['User']['id']), array('escape' => false), null, false) .' '.
-				$this->Html->link($this->Html->image('icons/delete.png'), array('action'=>'delete', $value['User']['id']), array('escape' => false), null, false)
-			),
-			array('class'=>'row'),
-			array('class'=>'altrow')
-		);
+  
+foreach ($data as $key => $value):    
+    echo $this->Html->tableCells(
+      array(
+        $value['User']['id'],
+        $value['Group']['name'],
+        $value['User']['name'],
+        $value['User']['username'],
+        $this->Html->link($this->Html->image('icons/edit.png'), array('action'=>'edit', $value['User']['id']), array('escape' => false), null, false) .' '.
+        $this->Html->link($this->Html->image('icons/delete.png'), array('action'=>'delete', $value['User']['id']), array('escape' => false), null, false)
+      ),
+      array('class'=>'row'),
+      array('class'=>'altrow')
+    );
 
 
 

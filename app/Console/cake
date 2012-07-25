@@ -20,9 +20,9 @@
 LIB=$(cd -P -- "$(dirname -- "$0")" && pwd -P) && LIB=$LIB/$(basename -- "$0")
 
 while [ -h "$LIB" ]; do
-	DIR=$(dirname -- "$LIB")
-	SYM=$(readlink "$LIB")
-	LIB=$(cd "$DIR" && cd $(dirname -- "$SYM") && pwd)/$(basename -- "$SYM")
+  DIR=$(dirname -- "$LIB")
+  SYM=$(readlink "$LIB")
+  LIB=$(cd "$DIR" && cd $(dirname -- "$SYM") && pwd)/$(basename -- "$SYM")
 done
 
 LIB=$(dirname -- "$LIB")/
