@@ -1,16 +1,30 @@
 <?php
 
 App::uses('Controller', 'Controller');
+App::uses('Security', 'Utility');
 
 class AppController extends Controller {
   
-  var $components = array('Auth', 'RequestHandler', 'Session', 'DebugKit.Toolbar');
-  var $passed = null;
-  var $replace = array(
+  public $components = array(
+    'Auth' => array(
+      'loginAction' => array(
+        'controller' => 'users',
+        'action' => 'login',
+      ),
+    ),
+    'Auth', 
+    'RequestHandler', 
+    'Session', 
+  );
+  public $passed = null;
+  public $replace = array(
       'phone' => array('+', '-', '(', ')', ' ')
     );
 
-   function beforeFilter() {  
+  public function beforeFilter() {  
+
+    Security::setHash('sha256');
+    
     // auth component stuff
     $this->Auth->loginRedirect    = array('controller' => 'leads', 'action' => 'index');
     $this->Auth->allowedActions   = array('*');
@@ -23,18 +37,15 @@ class AppController extends Controller {
       }
       
       $this->passed = rtrim($this->passed, ",");
-      $this->logAction();
-      }
-      else {
-          if ($this->request->params['action'] != 'login') $this->redirect('/users/login');
-      }
+      // $this->logAction();
+    }
     
     // set our default page title into our view based off the current controller name
     $this->pageTitle = Inflector::humanize($this->request->params['controller']) . ' : ' . Inflector::humanize($this->request->params['action']);
   }
   
   // this function tracks our user's actions
-  function logAction () {
+  public function logAction () {
     // prepare the data variable
     $this->request->data['ActionLog']['user_id']    = $this->Auth->user('id');
     $this->request->data['ActionLog']['controller'] = $this->request->params['controller'];
@@ -42,14 +53,14 @@ class AppController extends Controller {
     $this->request->data['ActionLog']['params']     = $this->passed;
     
     // insert new log
-    $this->ActionLog = ClassRegistry::init('ActionLog');
+    Controller::loadModel('ActionLog');
     $this->ActionLog->create();
     $this->ActionLog->save($this->request->data);
     
     unset($this->request->data['ActionLog']);
   }
 
-  function beforeRender() {  
+  public function beforeRender() {  
     if ($this->Auth->user()) {      
        $this->set('task', ClassRegistry::init('Note')->getTasks());
     }
@@ -58,7 +69,7 @@ class AppController extends Controller {
   /**
    * Phone Format Utility for 10 digit US Phone numbers
    */
-  function phone($data = '') {
+  public function phone($data = '') {
     $data = str_replace($this->replace['phone'], '', $data);
     $data = ereg_replace("[^0-9]",'',$data);
     if(strlen($data) == 10) $data = '('. substr($data,0,3) .') '. substr($data,3,3) .'-'. substr($data,6,4);
@@ -66,4 +77,3 @@ class AppController extends Controller {
     return($data);
   }
 }
-?>

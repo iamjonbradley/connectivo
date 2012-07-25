@@ -520,7 +520,6 @@ class Debugger {
  */
 	protected static function _array(array $var, $depth, $indent) {
 		$secrets = array(
-			'password' => '*****',
 			'login'  => '*****',
 			'host' => '*****',
 			'database' => '*****',
@@ -720,7 +719,7 @@ class Debugger {
 		$info = '';
 
 		foreach ((array)$data['context'] as $var => $value) {
-			$context[] = "\${$var} = " . $this->exportVar($value, 1);
+			$context[] = "\${$var} = " . $this->exportVar($value, 3);
 		}
 
 		switch ($this->_outputFormat) {

@@ -123,6 +123,7 @@ class Security {
  * @return void
  * @see Security::hash()
  */
+
 	public static function setHash($hash) {
 		self::$hashType = $hash;
 	}

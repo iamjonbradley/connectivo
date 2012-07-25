@@ -7,10 +7,6 @@ Configure::write('Dispatcher.filters', array(
   'CacheDispatcher'
 ));
 
-CakePlugin::load('DebugKit');
-
-date_default_timezone_set('America/New_York');
-
 App::uses('CakeLog', 'Log');
 CakeLog::config('debug', array(
   'engine' => 'FileLog',

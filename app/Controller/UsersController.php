@@ -1,37 +1,47 @@
 <?php
+
+
+App::uses('Sanitize', 'Utility');
 class UsersController extends AppController {
 
   var $name = 'Users';
   
-  function beforeFilter() {
-    $this->Auth->allow('add');
+  public function beforeFilter() {
   }
   
-  function login() {
+  public function login() {
+    if ($this->request->is('post')) {
+      if ($this->Auth->login()) {
+        return $this->redirect($this->Auth->redirect());
+      } else {
+        $this->Session->setFlash(__('Username or password is incorrect'), 'default', array(), 'auth');
+      }
+    }
   }
     
-    function logout() {
-        $this->Session->setFlash('You have successfully logged out.');
-        $this->redirect($this->Auth->logout());
-    }
+  public function logout() {
+    $this->Session->setFlash('You have successfully logged out.');
+    $this->redirect($this->Auth->logout());
+  }
 
-  function index() {
+  public function index() {
     $this->User->recursive = 0;
     $this->set('data', $this->paginate());
   }
 
-  function view($id = null) {
+  public function view($id = null) {
     if (!$id) {
       $this->flash('invalid', 'index');
     }
     $this->set('user', $this->User->read(null, $id));
   }
 
-  function add() {
+  public function add() {
+
     if (!empty($this->request->data)) {
-      $this->User->create();
-      $this->__convertPasswords();
-      if ($this->User->save($this->request->data)) {
+      $data = Sanitize::clean($this->request->data);
+      $data['User']['password'] = self::__convertPasswords($data['User']['password'], null, true);
+      if ($this->User->save($data)) {
         $this->Session->setFlash('User Saved');
         $this->redirect('index');
       } else {
@@ -42,7 +52,7 @@ class UsersController extends AppController {
     $this->set(compact('groups'));
   }
 
-  function edit($id = null) {
+  public function edit($id = null) {
     if (!$id && empty($this->request->data)) {
       $this->flash('invalid', 'index');
     }
@@ -62,7 +72,7 @@ class UsersController extends AppController {
     $this->set(compact('groups'));
   }
 
-  function delete($id = null) {
+  public function delete($id = null) {
     if (!$id) {
       $this->Session->setFlash('User Invalid');
     }
@@ -72,7 +82,7 @@ class UsersController extends AppController {
     }
   }
   
-  function xmlLogin() {
+  public function xmlLogin() {
       // Verify request is from a webservice
       if ($this->Session->check('webserviceRequest')) {
           $this->Session->delete('webserviceRequest');
@@ -104,28 +114,10 @@ class UsersController extends AppController {
           $this->cakeError('serviceResponse', array('errorMessage' => $errorMessage, 'errorCode' => $errorCode));
       }
   }
-
-    
-    /**
-     * Hash submitted passwords according to the scheme used by the Auth component
-   *
-   * We need to keep a copy of the string submitted by the user, so we can
-   * use built-in validation rules on it.  However, we also need to convert this value
-   * to the hashed string that will be stored in the database.
-   *
-   * @access private
-   * @return null
-     *
-     */
-  function __convertPasswords()
+  
+  private function __convertPasswords($password)
   {
-      if(!empty( $this->request->data['User']['new_password'] ) ){
-            // we still want to validate the value entered in new_passwd
-            // so we store the hashed value in a new data field which
-            // we will later pass on to the passwd field in an 
-            // afterSave() function 
-        $this->request->data['User']['password'] = $this->Auth->password( $this->request->data['User']['new_password'] );
-    }
+     return Security::hash($password, null, true);
   }
 
 }
