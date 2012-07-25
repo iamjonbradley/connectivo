@@ -185,5 +185,4 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Administrator', 'admin', '74ceb3d2dd9beb1fe7911e5e23d94eb7340f48a6', '1', '2009-03-31 12:43:56', '2009-07-03 23:21:48');
-INSERT INTO `users` VALUES ('20', 'Staff', 'staff', 'f95565b9f9c849551b652d24a4b2e2d6b4dfd2f9', '2', '2009-04-09 11:53:52', '2010-05-12 11:10:39');
+INSERT INTO `users` VALUES ('1', 'Administrator', 'admin', '96217f5dbae2a5f9afdff4d56c8f4e68c52302d7', '1', NOW(), NOW());

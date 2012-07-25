@@ -6,12 +6,6 @@ App::uses('Security', 'Utility');
 class AppController extends Controller {
   
   public $components = array(
-    'Auth' => array(
-      'loginAction' => array(
-        'controller' => 'users',
-        'action' => 'login',
-      ),
-    ),
     'Auth', 
     'RequestHandler', 
     'Session', 
@@ -26,8 +20,8 @@ class AppController extends Controller {
     Security::setHash('sha256');
     
     // auth component stuff
+    $this->Auth->loginAction      = array('controller' => 'users', 'action' => 'login');
     $this->Auth->loginRedirect    = array('controller' => 'leads', 'action' => 'index');
-    $this->Auth->allowedActions   = array('*');
     
     // if the user is logged in and see if they have open timeclocks and projects
     if ($this->Auth->user()) {      
